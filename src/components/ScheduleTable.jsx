@@ -9,7 +9,8 @@ import {
     CalendarDaysIcon,
     VideoCameraIcon,
     BuildingStorefrontIcon,
-    ChevronDownIcon
+    ChevronDownIcon,
+    FilmIcon
 } from '@heroicons/react/24/outline';
 
 import DatePicker from 'react-datepicker';
@@ -168,10 +169,16 @@ const ScheduleTable = ({ schedules, movies, cinemas, onEdit, onDelete }) => {
                                 <tr key={schedule.id} className="border-b border-gray-200 hover:bg-slate-50 transition-colors align-middle">
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <div className="flex items-center">
-                                            {schedule.movie?.poster_url && (
-                                                <img src={`${IMAGE_BASE_URL}${schedule.movie.poster_url}`} alt={schedule.movie.title} className="h-14 w-10 object-cover rounded-md shadow mr-4" />
-                                            )}
-                                            <span className="font-semibold text-sm text-slate-900">{schedule.movie?.title || 'N/A'}</span>
+                                            <div className="flex-shrink-0 h-16 w-12">
+                                                {schedule.movie.poster_url ?
+                                                    <img src={`${IMAGE_BASE_URL}${schedule.movie.poster_url}`} alt={schedule.movie.title} className="h-16 w-12 object-cover rounded-md shadow" /> :
+                                                    <div className="h-16 w-12 bg-gray-200 flex items-center justify-center rounded-md"><FilmIcon className="h-6 w-6 text-gray-400" /></div>
+                                                }
+                                            </div>
+                                            <div className="ml-4">
+                                                <div className="text-sm font-bold text-slate-900">{schedule.movie?.title || 'N/A'}</div>
+                                                <div className="text-xs text-slate-500 mt-1 px-2 py-0.5 bg-slate-100 rounded-full inline-block">{schedule.movie.genre}</div>
+                                            </div>
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
