@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiClient, { showSwal, showValidationErrors } from '../api/api';
+import { PlusIcon } from '@heroicons/react/24/solid';
 
 import ScheduleTable from '../components/ScheduleTable';
 import ScheduleForm from '../components/ScheduleForm';
@@ -7,7 +8,7 @@ import ScheduleForm from '../components/ScheduleForm';
 const SchedulesPage = () => {
     const [schedules, setSchedules] = useState([]);
     const [loading, setLoading] = useState(true);
-    
+
     const [moviesList, setMoviesList] = useState([]);
     const [cinemasList, setCinemasList] = useState([]);
 
@@ -59,7 +60,7 @@ const SchedulesPage = () => {
                 text: response.data.message,
                 icon: 'success',
             });
-            fetchData(); // Refresh data
+            fetchData();
             handleCloseModal();
         } catch (error) {
             if (error.response && error.response.status === 422) {
@@ -82,7 +83,7 @@ const SchedulesPage = () => {
                 try {
                     const response = await apiClient.delete(`/schedules/${id}`);
                     showSwal('Deleted!', response.data.message, 'success');
-                    fetchData(); // Refresh data
+                    fetchData();
                 } catch (error) {
                     showSwal('Error!', 'Failed to delete schedule.', 'error');
                 }
@@ -94,20 +95,24 @@ const SchedulesPage = () => {
         <div>
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-3xl font-bold text-gray-800">Schedules</h1>
-                <button onClick={() => handleOpenModal()} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-                    + Add Schedule
+                <button
+                    onClick={() => handleOpenModal()}
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all"
+                >
+                    <PlusIcon className="h-5 w-5" />
+                    Add Movie
                 </button>
             </div>
 
             {loading ? (
                 <p>Loading data...</p>
             ) : (
-                <ScheduleTable 
+                <ScheduleTable
                     schedules={schedules}
                     movies={moviesList}
                     cinemas={cinemasList}
-                    onEdit={handleOpenModal} 
-                    onDelete={handleDeleteSchedule} 
+                    onEdit={handleOpenModal}
+                    onDelete={handleDeleteSchedule}
                 />
             )}
 
