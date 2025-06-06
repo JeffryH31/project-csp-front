@@ -1,63 +1,92 @@
-// Movie_Detail.js
+// Movie_Detail.js (Versi Sederhana tanpa Jadwal)
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const Movie_Detail = () => {
-    const API_BASE_URL = '/api/movies';
     const { id } = useParams();
-    const [movie, setMovie] = useState(null); // This will hold the actual movie object
+    const [movie, setMovie] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    // --- PENTING: Ganti URL ini dengan URL backend Laravel Anda ---
+    const LARAVEL_BACKEND_URL = 'http://127.0.0.1:8000'; 
 
     useEffect(() => {
+        // Nama fungsi diubah karena hanya mengambil data film
         const fetchMovie = async () => {
+            setLoading(true);
+            setError('');
             try {
-                const res = await axios.get(`${API_BASE_URL}/${id}`);
-                console.log('Full API response (res.data):', res.data); // Log the whole response from axios
-
-                if (res.data && res.data.success && res.data.data) {
-                    // ✅ CORRECTED: Set the movie state to the nested 'data' object
-                    setMovie(res.data.data);
-                    console.log('Actual movie data being set to state:', res.data.data);
+                // Hanya mengambil data detail film, bagian jadwal dihapus
+                const movieRes = await axios.get(`/api/movies/${id}`);
+                if (movieRes.data && movieRes.data.success) {
+                    setMovie(movieRes.data.data);
                 } else {
-                    console.error('Movie data not found in expected format:', res.data);
-                    // Optionally set an error state here
+                    throw new Error('Film tidak ditemukan');
                 }
-            } catch (error) {
-                console.error('Fetch error:', error);
-                if (error.response) {
-                    console.error('Error response data:', error.response.data);
-                }
+            } catch (err) {
+                console.error('Fetch error:', err);
+                setError('Gagal memuat data. Silakan coba lagi.');
+            } finally {
+                setLoading(false);
             }
         };
+
         fetchMovie();
-    }, [id]);
+    }, [id]); // Dependency tetap [id]
 
-    // This useEffect is good for debugging the 'movie' state itself
-    useEffect(() => {
-        if (movie) {
-            console.log('Movie state updated to:', movie);
-            console.log('Movie poster value from state:', movie.poster);
-        }
-    }, [movie]);
-
-    if (!movie) {
-        return <p>Loading movie details...</p>;
+    if (loading) {
+        return <div className="flex justify-center items-center min-h-screen bg-zinc-900 text-white text-2xl">Memuat detail film...</div>;
     }
 
-    // Now, movie.title, movie.description, movie.poster etc., should work,
-    // assuming these fields exist within the 'res.data.data' object from your API.
+    if (error) {
+        return <div className="flex justify-center items-center min-h-screen bg-zinc-900 text-red-400 text-2xl">{error}</div>;
+    }
+
+    // Jika movie belum ada setelah loading selesai (misal karena error tapi tidak tertangkap)
+    if (!movie) {
+        return <div className="flex justify-center items-center min-h-screen bg-zinc-900 text-white">Data film tidak tersedia.</div>;
+    }
+
     return (
-        <div>
-            <h2>{movie.title}</h2>
-            <p>{movie.description}</p>
-            <p>Duration: {movie.duration} minutes</p>
-            <p>Genre: {movie.genre}</p>
-            {/* Check if movie.poster has a value before rendering the img tag */}
-            {movie.poster ? (
-                <img src={`/laravel_storage/${movie.poster}`} alt={movie.title} />
-            ) : (
-                <p>No poster available</p>
-            )}
+        // Container utama
+        <div className="bg-zinc-900 text-white min-h-screen p-4 md:p-10 font-sans">
+            
+            {/* Kartu Detail Film */}
+            <div className="bg-zinc-800 rounded-xl p-6 md:p-8 flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
+                
+                {/* Kolom Kiri: Poster */}
+                <div className="flex-shrink-0 w-full md:w-1/3 lg:w-1/4 mx-auto">
+                    {movie.poster_url ? (
+                        <img 
+                            src={`${LARAVEL_BACKEND_URL}/storage/${movie.poster_url}`} 
+                            alt={movie.title} 
+                            className="w-full h-auto object-cover rounded-lg shadow-lg"
+                        />
+                    ) : (
+                        <div className="w-full h-[450px] bg-zinc-700 rounded-lg flex items-center justify-center text-zinc-400">
+                            No Poster Available
+                        </div>
+                    )}
+                </div>
+
+                {/* Kolom Kanan: Informasi Film */}
+                <div className="flex-grow">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">{movie.title}</h1>
+                    <div className="flex flex-wrap gap-3 mb-8">
+                        <span className="bg-zinc-700 text-zinc-300 text-sm font-semibold px-4 py-2 rounded-full">{movie.genre}</span>
+                        <span className="bg-zinc-700 text-zinc-300 text-sm font-semibold px-4 py-2 rounded-full">{movie.duration} Minutes</span>
+                    </div>
+                    <div className="synopsis">
+                        <h3 className="text-lg font-semibold uppercase border-l-4 border-yellow-500 pl-3 mb-3">Synopsis</h3>
+                        <p className="text-zinc-300 leading-relaxed">{movie.description}</p>
+                    </div>
+                </div>
+            </div>
+            
+            {/* BAGIAN JADWAL TAYANG SUDAH DIHAPUS DARI SINI */}
+            
         </div>
     );
 };

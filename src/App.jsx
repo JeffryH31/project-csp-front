@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Movie_Detail from './User/Movie_Detail'; // adjust path if needed
 import "./App.css";
 import MyTickets from './User/MyTickets';
+
 // import Movie_Detail from "./User/Movie_Detail";
 function App() {
   return (
