@@ -1,14 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import { MagnifyingGlassIcon, ClockIcon, ChevronLeftIcon, ChevronRightIcon, FilmIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
-
+import SortIcon from '../common/SortIcon';
 
 const IMAGE_BASE_URL = "http://127.0.0.1:8000/storage/";
-
-const SortIcon = ({ direction }) => {
-    if (direction === 'ascending') return <span className="ml-1">↑</span>;
-    if (direction === 'descending') return <span className="ml-1">↓</span>;
-    return <span className="ml-1 text-gray-400">↑↓</span>;
-};
 
 const MovieTable = ({ movies, onEdit, onDelete }) => {
     const [searchTerm, setSearchTerm] = useState('');

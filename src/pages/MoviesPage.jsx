@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import MovieTable from '../components/MovieTable';
-import MovieForm from '../components/MovieForm';
+import MovieTable from '../components/movies/MovieTable';
+import MovieForm from '../components/movies/MovieForm';
 import apiClient, { showSwal, showValidationErrors } from '../api/api';
 import { PlusIcon } from '@heroicons/react/24/solid';
+import Modal from '../components/common/Modal';
 
 const MoviesPage = () => {
     const [movies, setMovies] = useState([]);
@@ -103,21 +104,14 @@ const MoviesPage = () => {
 
             {loading ? <p>Loading...</p> : <MovieTable movies={movies} onEdit={handleOpenModal} onDelete={handleDeleteMovie} />}
 
-            {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-                    <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-lg mx-4">
-                        <div className="flex justify-between items-center border-b pb-3 mb-4">
-                            <h2 className="text-xl font-semibold">{editingMovie ? 'Edit Movie' : 'Add Movie'}</h2>
-                            <button onClick={handleCloseModal} className="text-black text-2xl font-bold">&times;</button>
-                        </div>
-                        <MovieForm
-                            initialData={editingMovie}
-                            onSubmit={handleSaveMovie}
-                            onCancel={handleCloseModal}
-                        />
-                    </div>
-                </div>
-            )}
+
+            <Modal show={showModal} onClose={handleCloseModal} title={editingMovie ? 'Edit Movie' : 'Add Movie'}>
+                <MovieForm
+                    initialData={editingMovie}
+                    onSubmit={handleSaveMovie}
+                    onCancel={handleCloseModal}
+                />
+            </Modal>
         </div>
     );
 };

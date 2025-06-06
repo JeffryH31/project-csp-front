@@ -19,28 +19,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from 'date-fns';
 import { id } from 'date-fns/locale';
 
+import SortIcon from '../common/SortIcon';
+import FilterSelect from '../common/FilterSelect';
 
 const IMAGE_BASE_URL = "http://127.0.0.1:8000/storage/";
-
-const SortIcon = ({ direction }) => {
-    if (direction === 'ascending') return <span className="ml-1">↑</span>;
-    if (direction === 'descending') return <span className="ml-1">↓</span>;
-    return <span className="ml-1 text-gray-400">↑↓</span>;
-};
-
-const FilterSelect = ({ icon, children, ...props }) => (
-    <div className="relative">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            {icon}
-        </span>
-        <select {...props}>
-            {children}
-        </select>
-        <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-            <ChevronDownIcon className="h-5 w-5 text-gray-400" />
-        </span>
-    </div>
-);
 
 const FilterDateInput = React.forwardRef(({ value, onClick, icon }, ref) => (
     <div className="relative" onClick={onClick} ref={ref}>

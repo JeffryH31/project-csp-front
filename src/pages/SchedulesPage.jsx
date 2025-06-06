@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import apiClient, { showSwal, showValidationErrors } from '../api/api';
 import { PlusIcon } from '@heroicons/react/24/solid';
 
-import ScheduleTable from '../components/ScheduleTable';
-import ScheduleForm from '../components/ScheduleForm';
+import ScheduleTable from '../components/schedules/ScheduleTable';
+import ScheduleForm from '../components/schedules/ScheduleForm';
+import Modal from '../components/common/Modal';
 
 const SchedulesPage = () => {
     const [schedules, setSchedules] = useState([]);
@@ -116,23 +117,16 @@ const SchedulesPage = () => {
                 />
             )}
 
-            {showModal && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-                    <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-lg mx-4">
-                        <div className="flex justify-between items-center border-b pb-3 mb-4">
-                            <h2 className="text-xl font-semibold">{editingSchedule ? 'Edit Schedule' : 'Add New Schedules'}</h2>
-                            <button onClick={handleCloseModal} className="text-black text-2xl font-bold">&times;</button>
-                        </div>
-                        <ScheduleForm
-                            initialData={editingSchedule}
-                            moviesList={moviesList}
-                            cinemasList={cinemasList}
-                            onSubmit={handleSaveSchedule}
-                            onCancel={handleCloseModal}
-                        />
-                    </div>
-                </div>
-            )}
+
+            <Modal show={showModal} onClose={handleCloseModal} title={editingSchedule ? 'Edit Schedule' : 'Add New Schedules'}>
+                <ScheduleForm
+                    initialData={editingSchedule}
+                    moviesList={moviesList}
+                    cinemasList={cinemasList}
+                    onSubmit={handleSaveSchedule}
+                    onCancel={handleCloseModal}
+                />
+            </Modal>
         </div>
     );
 };
