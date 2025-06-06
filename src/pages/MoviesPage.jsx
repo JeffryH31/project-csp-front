@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import MovieTable from '../components/MovieTable';
 import MovieForm from '../components/MovieForm';
-import apiClient, { showSwal, showValidationErrors } from '../api/movie';
+import apiClient, { showSwal, showValidationErrors } from '../api/api';
 
 const MoviesPage = () => {
     const [movies, setMovies] = useState([]);

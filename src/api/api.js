@@ -26,7 +26,7 @@ export const showValidationErrors = (error) => {
         const errorMessages = Object.values(errorList).flat(); 
         const formattedErrors = errorMessages.join('<br>');
         Swal.fire({
-            title: 'Validation Error',
+            title: 'Oops!',
             html: formattedErrors, 
             icon: 'error',
             confirmButtonText: 'OK',

@@ -27,6 +27,13 @@ const Layout = () => {
                         >
                             Movies
                         </NavLink>
+                         <NavLink 
+                            to="/schedules" 
+                            className="ml-4 px-3 py-2 rounded-md text-sm font-medium"
+                            style={({ isActive }) => isActive ? activeLinkStyle : undefined}
+                        >
+                            Schedules
+                        </NavLink>
                     </div>
                 </div>
             </nav>
