@@ -6,7 +6,6 @@ import SchedulesPage from "./pages/Admin/SchedulesPage";
 import DashboardPage from "./pages/Admin/DashboardPage";
 import Movie_Detail from "./pages/User/Movie_Detail";
 import MyTickets from "./pages/User/MyTickets";
-import React from 'react';
 import Navbar from './components/Navbar';
 import MovieSlider from './components/MovieSlider';
 import "./App.css";
