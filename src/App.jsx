@@ -12,11 +12,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Public/User Routes */}
+        {/* User Routes */}
         <Route path="/movies/:id" element={<Movie_Detail />} />
         <Route path="/history" element={<MyTickets />} />
 
-        {/* Admin Routes (with Layout) */}
+        {/* Admin Routes */}
         <Route path="/admin" element={<Layout />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="movies" element={<MoviesPage />} />
@@ -24,7 +24,7 @@ function App() {
         </Route>
 
         {/* Default Redirect (optional) */}
-        <Route path="*" element={<DashboardPage />} />
+        <Route path="/" element={<DashboardPage />} />
       </Routes>
     </BrowserRouter>
   );
