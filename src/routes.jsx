@@ -7,8 +7,16 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
         {
-            
+            path: "admin",
+            element: <Admin />,
+            children: [
+              {
+              
+              }
+            ]
         }
     ]
   },
 ]);
+
+export default router;
