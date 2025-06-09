@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import MovieTable from '../components/movies/MovieTable';
-import MovieForm from '../components/movies/MovieForm';
-import apiClient, { showSwal, showValidationErrors } from '../api/api';
+import MovieTable from '../../components/movies/MovieTable';
+import MovieForm from '../../components/movies/MovieForm';
+import apiClient, { showSwal, showValidationErrors } from '../../api/api';
 import { PlusIcon } from '@heroicons/react/24/solid';
-import Modal from '../components/common/Modal';
+import Modal from '../../components/common/Modal';
 
 const MoviesPage = () => {
     const [movies, setMovies] = useState([]);

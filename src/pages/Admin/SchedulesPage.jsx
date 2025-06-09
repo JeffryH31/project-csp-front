@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import apiClient, { showSwal, showValidationErrors } from '../api/api';
+import apiClient, { showSwal, showValidationErrors } from '../../api/api';
 import { PlusIcon } from '@heroicons/react/24/solid';
 
-import ScheduleTable from '../components/schedules/ScheduleTable';
-import ScheduleForm from '../components/schedules/ScheduleForm';
-import Modal from '../components/common/Modal';
+import ScheduleTable from '../../components/schedules/ScheduleTable';
+import ScheduleForm from '../../components/schedules/ScheduleForm';
+import Modal from '../../components/common/Modal';
 
 const SchedulesPage = () => {
     const [schedules, setSchedules] = useState([]);
