@@ -1,3 +1,6 @@
+import Movie_Detail from './User/Movie_Detail';
+import "./App.css";
+import MyTickets from './User/MyTickets';
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'; 
 import Layout from './layout/AdminLayout';
@@ -10,6 +13,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" eelement={<Layout />} />
+        <Route path="/movies/:id" element={<Movie_Detail />} />
+        <Route path="/history" element={<MyTickets />} />
 
         <Route path="/admin" element={<Layout />}>
           <Route path="dashboard" element={<DashboardPage />} />
@@ -23,3 +28,4 @@ function App() {
 }
 
 export default App;
+
