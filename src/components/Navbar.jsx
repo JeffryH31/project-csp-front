@@ -5,51 +5,39 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  const linkClass =
+    "relative inline-block overflow-hidden after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-yellow-400 after:transition-all after:duration-500 hover:after:w-full";
+
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50 w-full border-b border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        {/* Logo */}
+    <nav className="bg-white text-black border-b border-gray-200 w-full sticky top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <img className="h-10 w-auto" src={logo} alt="Logo" />
+          <img src={logo} alt="Logo" className="h-10 w-auto" />
         </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 font-semibold text-blue-900">
-          <a href="#" className="hover:text-yellow-500">HOME</a>
-          <a href="#" className="hover:text-yellow-500">TIX NOW</a>
-          <a href="#" className="hover:text-yellow-500">TIX EVENTS</a>
-          <a href="#" className="hover:text-yellow-500">CAREERS</a>
+        <div className="hidden md:flex text-sm font-medium uppercase">
+          <a href="#" className={`${linkClass} block px-3`}>Daftar Film</a>
+          <a href="#" className={`${linkClass} block px-3`}>Cari Bioskop</a>
+          <a href="#" className={`${linkClass} block px-3`}>Tentang Kami</a>
         </div>
 
-        {/* Desktop Button */}
-        <div className="hidden md:flex">
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-semibold px-4 py-2 rounded-full">
-            DOWNLOAD TIX ID
-          </button>
-        </div>
-
-        {/* Hamburger (Mobile) */}
         <div className="md:hidden">
           <button onClick={toggleMenu} className="focus:outline-none">
-            <span className="block w-6 h-0.5 bg-blue-900 mb-1"></span>
-            <span className="block w-6 h-0.5 bg-blue-900 mb-1"></span>
-            <span className="block w-6 h-0.5 bg-blue-900"></span>
+            <span className="block w-6 h-0.5 bg-black mb-1"></span>
+            <span className="block w-6 h-0.5 bg-black mb-1"></span>
+            <span className="block w-6 h-0.5 bg-black"></span>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden px-4 pb-4 bg-white">
-          <a href="#" className="block py-2 font-semibold text-blue-900 hover:text-yellow-500">HOME</a>
-          <a href="#" className="block py-2 font-semibold text-blue-900 hover:text-yellow-500">TIX NOW</a>
-          <a href="#" className="block py-2 font-semibold text-blue-900 hover:text-yellow-500">TIX EVENTS</a>
-          <a href="#" className="block py-2 font-semibold text-blue-900 hover:text-yellow-500">CAREERS</a>
-          <button className="w-full mt-3 bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-semibold px-4 py-2 rounded-full">
-            DOWNLOAD TIX ID
-          </button>
+        <div className="md:hidden px-4 pb-4 bg-white flex flex-col text-sm font-medium uppercase">
+          <a href="#" className={`${linkClass} block py-2`}>Daftar Film</a>
+          <a href="#" className={`${linkClass} block py-2`}>Cari Bioskop</a>
+          <a href="#" className={`${linkClass} block py-2`}>Tentang Kami</a>
         </div>
       )}
+
     </nav>
   );
 };

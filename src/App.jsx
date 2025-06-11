@@ -9,6 +9,7 @@ import MyTickets from "./pages/User/MyTickets";
 import Navbar from './components/Navbar';
 import MovieSlider from './components/MovieSlider';
 import "./App.css";
+import Homepage from "./pages/User/Homepage";
 
 
 function App() {
@@ -27,19 +28,9 @@ function App() {
         </Route>
 
         {/* Default Redirect (optional) */}
-        <Route path="/" element={<DashboardPage />} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </BrowserRouter>
-  );
-  return (
-    <div className="w-full min-h-screen bg-white">
-      <Navbar />
-      <main className="p-6 w-full">
-        <div className="max-w-7xl mx-auto">
-          <MovieSlider />
-        </div>
-      </main>
-    </div>
   );
 }
 

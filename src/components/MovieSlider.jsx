@@ -30,7 +30,7 @@ export default function MovieSlider() {
 
   return (
     <div className="py-10 px-4 bg-white">
-      <h2 className="text-3xl font-bold mb-6">NOW SHOWING IN CINEMAS</h2>
+      <h2 className="text-3xl font-bold mb-6 ">NOW SHOWING IN CINEMAS</h2>
 
       <Swiper
         spaceBetween={20}
@@ -49,9 +49,9 @@ export default function MovieSlider() {
               <img
                 src={`http://localhost:8000/storage/${movie.poster_url}`}
                 alt={movie.title}
-                className="rounded-lg shadow-lg w-full h-auto object-cover"
+                className="rounded-lg shadow-lg w-full h-[500px] object-cover"
               />
-              <p className="font-semibold mt-2 text-sm">{movie.title}</p>
+              <p className="font-semibold mt-2 text-xl">{movie.title}</p>
             </div>
           </SwiperSlide>
         ))}
