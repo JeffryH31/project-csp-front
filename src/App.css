@@ -8,3 +8,28 @@
 .swal2-cancel {
     background-color: rgb(255, 0, 0) !important;
 }
+
+.hero-slider .swiper-button-next,
+.hero-slider .swiper-button-prev,
+.movie-slider .swiper-button-next,
+.movie-slider .swiper-button-prev {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.hero-slider .swiper-button-next:hover,
+.hero-slider .swiper-button-prev:hover,
+.movie-slider .swiper-button-next:hover,
+.movie-slider .swiper-button-prev:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+    font-size: 18px !important;
+    font-weight: bold;
+}
