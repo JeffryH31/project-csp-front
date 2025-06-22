@@ -42,6 +42,7 @@ function App() {
 
         {/* Admin Routes */}
         <Route path="/admin" element={<Layout />}>
+          <Route index element={<DashboardPage />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="movies" element={<MoviesPage />} />
           <Route path="schedules" element={<SchedulesPage />} />

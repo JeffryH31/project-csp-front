@@ -7,7 +7,6 @@ export const AxiosInstance = () => {
     headers: {
       "Content-Type": "application/json",
     },
-    // withCredentials: true,
   });
 
   return instance;

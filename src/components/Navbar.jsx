@@ -34,7 +34,7 @@ const Navbar = () => {
                   Hi, {user.name.split(" ")[0]}
                 </span>
                 <Link
-                  to="/my-tickets"
+                  to="/history"
                   className={`${buttonClass} bg-zinc-700 hover:bg-zinc-600`}
                 >
                   My Tickets
