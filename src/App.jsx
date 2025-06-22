@@ -6,23 +6,39 @@ import MoviesPage from "./pages/Admin/MoviesPage";
 import SchedulesPage from "./pages/Admin/SchedulesPage";
 import DashboardPage from "./pages/Admin/DashboardPage";
 import MyTickets from "./pages/User/MyTickets";
-import Navbar from './components/Navbar';
-import MovieSlider from './components/MovieSlider';
+import Navbar from "./components/Navbar";
+import MovieSlider from "./components/MovieSlider";
 import MovieDetails from "./pages/User/MovieDetails";
 import SeatSelection from "./pages/User/SeatSelection";
 import OrderConfirmation from "./pages/User/OrderConfirmation";
 import Homepage from "./pages/User/Homepage";
-
+import AuthPage from "./pages/User/AuthPage";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition:Bounce
+      />
       <Routes>
         {/* User Routes */}
         <Route path="/movies/:id" element={<MovieDetails />} />
         <Route path="/history" element={<MyTickets />} />
         <Route path="/seats/:schedule_id" element={<SeatSelection />} />
         <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/register" element={<AuthPage />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<Layout />}>

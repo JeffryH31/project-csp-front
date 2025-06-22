@@ -1,15 +1,21 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { toast } from "react-toastify";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const linkClass =
-    "relative block px-3 py-2 transition-colors duration-300 hover:text-cyan-400";
-  const mobileLinkClass =
-    "block py-3 px-4 text-center transition-colors duration-300 hover:bg-zinc-800 rounded-md";
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+    toast.success("You have been successfully logged out.");
+  };
+
+  const buttonClass =
+    "px-3 py-2 rounded-md text-sm font-semibold transition-colors duration-200";
 
   return (
     <nav className="bg-black/50 backdrop-blur-lg text-white w-full sticky top-0 z-50 border-b border-zinc-800">
@@ -20,65 +26,37 @@ const Navbar = () => {
               <img src={logo} alt="Logo" className="h-10 w-auto" />
             </Link>
           </div>
-          <div className="hidden md:flex items-center space-x-4 text-sm font-medium uppercase">
-            <Link to="/movies" className={linkClass}>
-              Now Showing
-            </Link>
-            <Link to="/cinemas" className={linkClass}>
-              Theaters
-            </Link>
-            <Link to="/about" className={linkClass}>
-              About Us
-            </Link>
-          </div>
-          <div className="hidden md:block">
-            <Link
-              to="/login"
-              className="bg-cyan-500 text-white px-4 py-2 rounded-md text-sm font-semibold hover:bg-cyan-600 transition-colors"
-            >
-              Login
-            </Link>
-          </div>
-          <div className="md:hidden">
-            <button onClick={toggleMenu} className="focus:outline-none p-2">
-              <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                  isOpen ? "rotate-45 translate-y-1.5" : ""
-                }`}
-              ></div>
-              <div
-                className={`w-6 h-0.5 bg-white my-1 transition-all duration-300 ${
-                  isOpen ? "opacity-0" : ""
-                }`}
-              ></div>
-              <div
-                className={`w-6 h-0.5 bg-white transition-all duration-300 ${
-                  isOpen ? "-rotate-45 -translate-y-1.5" : ""
-                }`}
-              ></div>
-            </button>
+
+          <div className="flex items-center gap-2 md:gap-4">
+            {user ? (
+              <>
+                <span className="text-sm hidden sm:block">
+                  Hi, {user.name.split(" ")[0]}
+                </span>
+                <Link
+                  to="/my-tickets"
+                  className={`${buttonClass} bg-zinc-700 hover:bg-zinc-600`}
+                >
+                  My Tickets
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className={`${buttonClass} bg-red-600 hover:bg-red-700`}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className={`${buttonClass} bg-cyan-500 hover:bg-cyan-600`}
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
-      {isOpen && (
-        <div className="md:hidden px-4 pb-4 pt-2 space-y-1 bg-zinc-900/90 flex flex-col text-sm font-medium uppercase">
-          <Link to="/movies" className={mobileLinkClass}>
-            Now Showing
-          </Link>
-          <Link to="/cinemas" className={mobileLinkClass}>
-            Theaters
-          </Link>
-          <Link to="/about" className={mobileLinkClass}>
-            About Us
-          </Link>
-          <Link
-            to="/login"
-            className="bg-cyan-500 text-white mt-2 py-3 px-4 rounded-md text-center font-semibold hover:bg-cyan-600 transition-colors"
-          >
-            Login
-          </Link>
-        </div>
-      )}
     </nav>
   );
 };

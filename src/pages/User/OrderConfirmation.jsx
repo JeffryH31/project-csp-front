@@ -22,6 +22,8 @@ const OrderConfirmation = () => {
     navigate("/");
     return null;
   }
+  console.log(location);
+  
 
   const { bookingDetails } = location.state;
   const {
@@ -85,7 +87,7 @@ const OrderConfirmation = () => {
         <main className="flex-grow overflow-y-auto p-4 space-y-6">
           <div className="bg-zinc-900 rounded-xl p-4 flex gap-x-4 border border-zinc-800">
             <img
-              src={poster_url}
+              src={`http://localhost:8000${poster_url}`}
               alt={movie_title}
               className="w-24 h-36 rounded-lg object-cover"
             />

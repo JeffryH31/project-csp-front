@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { AxiosInstance } from "../../helper/AxiosInstance";
 import { toast } from "react-toastify";
-import CinemaScreen from "../../components/schedules/CinemaScreen";
 import BookingSummary from "../../components/schedules/BookingSummary";
 import Seat from "../../components/schedules/Seat";
+import CinemaScreen from "../../components/cinemas/CinemaScreen";
+import { useAuth } from "../../contexts/AuthContext";
 
 const SeatSelection = () => {
   const { schedule_id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user } = useAuth();
   const [scheduleData, setScheduleData] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const instance = AxiosInstance();
@@ -46,6 +49,14 @@ const SeatSelection = () => {
       toast.warn("Silakan pilih kursi terlebih dahulu.");
       return;
     }
+
+    if (!user) {
+      toast.info("Anda harus login untuk melanjutkan pemesanan.");
+
+      navigate("/login", { state: { from: location } });
+      return;
+    }
+
     const bookingDetails = {
       ...scheduleData,
       schedule_id: schedule_id,
@@ -75,7 +86,7 @@ const SeatSelection = () => {
       return Array.from({ length: count }, (_, i) => {
         const seatNumber = start + i;
         const seat = seatMap.get(seatNumber);
-        
+
         if (seat) {
           return (
             <Seat
@@ -86,7 +97,12 @@ const SeatSelection = () => {
             />
           );
         } else {
-          return <div key={`${row}-${seatNumber}`} className="w-6 h-6 md:w-8 md:h-8" />;
+          return (
+            <div
+              key={`${row}-${seatNumber}`}
+              className="w-6 h-6 md:w-8 md:h-8"
+            />
+          );
         }
       });
     };
