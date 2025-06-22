@@ -1,20 +1,24 @@
 import React from "react";
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layout/AdminLayout";
 import MoviesPage from "./pages/Admin/MoviesPage";
 import SchedulesPage from "./pages/Admin/SchedulesPage";
 import DashboardPage from "./pages/Admin/DashboardPage";
-import Movie_Detail from "./pages/User/Movie_Detail";
 import MyTickets from "./pages/User/MyTickets";
-import "./App.css";
+import MovieDetails from "./pages/User/MovieDetails";
+import SeatSelection from "./pages/User/SeatSelection";
+import OrderConfirmation from "./pages/User/OrderConfirmation";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/* User Routes */}
-        <Route path="/movies/:id" element={<Movie_Detail />} />
+        <Route path="/movies/:id" element={<MovieDetails />} />
         <Route path="/history" element={<MyTickets />} />
+        <Route path="/seats/:schedule_id" element={<SeatSelection />} />
+        <Route path="/order-confirmation" element={<OrderConfirmation />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<Layout />}>

@@ -2,39 +2,56 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { AxiosInstance } from "../../helper/AxiosInstance";
+import { toast } from "react-toastify";
+import MovieSchedules from "../../components/movies/MovieSchedules";
 
-const Movie_Detail = () => {
+const MovieDetails = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState("schedule");
+  const instance = AxiosInstance();
 
-  // --- PENTING: Ganti URL ini dengan URL backend Laravel Anda ---
-  const LARAVEL_BACKEND_URL = "http://127.0.0.1:8000";
+  const LARAVEL_BACKEND_URL = import.meta.env.VITE_API_BASE_URL;
+
+  // Nama fungsi diubah karena hanya mengambil data film
+  const fetchMovie = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      // Hanya mengambil data detail film, bagian jadwal dihapus
+      const movieRes = await axios.get(`/api/movies/${id}`);
+      if (movieRes.data && movieRes.data.success) {
+        setMovie(movieRes.data.data);
+      } else {
+        throw new Error("Film tidak ditemukan");
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+      setError("Gagal memuat data. Silakan coba lagi.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    // Nama fungsi diubah karena hanya mengambil data film
-    const fetchMovie = async () => {
-      setLoading(true);
-      setError("");
-      try {
-        // Hanya mengambil data detail film, bagian jadwal dihapus
-        const movieRes = await axios.get(`/api/movies/${id}`);
-        if (movieRes.data && movieRes.data.success) {
-          setMovie(movieRes.data.data);
-        } else {
-          throw new Error("Film tidak ditemukan");
-        }
-      } catch (err) {
-        console.error("Fetch error:", err);
-        setError("Gagal memuat data. Silakan coba lagi.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchMovie();
-  }, [id]); // Dependency tetap [id]
+  }, [id]);
+
+  const tabs = [
+    {
+      id: "schedule",
+      label: "Schedule",
+      content: <MovieSchedules movie_id={id} />,
+    },
+    {
+      id: "details",
+      label: "Details",
+      content: movie?.description || "Description is not available",
+    },
+  ];
 
   if (loading) {
     return (
@@ -70,7 +87,9 @@ const Movie_Detail = () => {
         <div className="flex-shrink-0 w-full md:w-1/3 lg:w-1/4 mx-auto">
           {movie.poster_url ? (
             <img
-              src={`${LARAVEL_BACKEND_URL}/storage/${movie.poster_url}`}
+              src={`${import.meta.env.VITE_API_BASE_URL}/storage/${
+                movie.poster_url
+              }`}
               alt={movie.title}
               className="w-full h-auto object-cover rounded-lg shadow-lg"
             />
@@ -92,18 +111,28 @@ const Movie_Detail = () => {
               {movie.duration} Minutes
             </span>
           </div>
-          <div className="synopsis">
-            <h3 className="text-lg font-semibold uppercase border-l-4 border-yellow-500 pl-3 mb-3">
-              Synopsis
-            </h3>
-            <p className="text-zinc-300 leading-relaxed">{movie.description}</p>
+          <div className="synopsis flex gap-4 border-b border-gray-500">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`py-2 px-4 text-sm font-medium border-b-2 ${
+                  activeTab === tab.id
+                    ? "border-blue-500 text-blue-500"
+                    : "border-transparent text-gray-500 hover:text-blue-400"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <div className="text-zinc-300 leading-relaxed my-2">
+            {tabs.find((tab) => tab.id === activeTab)?.content}
           </div>
         </div>
       </div>
-
-      {/* BAGIAN JADWAL TAYANG SUDAH DIHAPUS DARI SINI */}
     </div>
   );
 };
 
-export default Movie_Detail;
+export default MovieDetails;
