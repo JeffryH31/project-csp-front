@@ -6,9 +6,13 @@ import MoviesPage from "./pages/Admin/MoviesPage";
 import SchedulesPage from "./pages/Admin/SchedulesPage";
 import DashboardPage from "./pages/Admin/DashboardPage";
 import MyTickets from "./pages/User/MyTickets";
+import Navbar from './components/Navbar';
+import MovieSlider from './components/MovieSlider';
 import MovieDetails from "./pages/User/MovieDetails";
 import SeatSelection from "./pages/User/SeatSelection";
 import OrderConfirmation from "./pages/User/OrderConfirmation";
+import Homepage from "./pages/User/Homepage";
+
 
 function App() {
   return (
@@ -28,7 +32,7 @@ function App() {
         </Route>
 
         {/* Default Redirect (optional) */}
-        <Route path="/" element={<DashboardPage />} />
+        <Route path="/" element={<Homepage />} />
       </Routes>
     </BrowserRouter>
   );
