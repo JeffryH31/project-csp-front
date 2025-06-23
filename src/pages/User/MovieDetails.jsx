@@ -76,7 +76,7 @@ const MovieDetails = () => {
     <div className="aurora-background min-h-screen pb-48 text-white">
       <div className="relative w-full h-80 md:h-[60vh]">
         <img
-          src={`http://localhost:8000${movie.poster_url}`}
+          src={import.meta.env.VITE_STORAGE_URL + `${movie.poster_url}`}
           alt="Movie Background"
           className="w-full h-full object-cover object-top"
         />
@@ -87,7 +87,7 @@ const MovieDetails = () => {
         <div className="flex flex-col md:flex-row items-start gap-6 md:gap-10">
           <div className="flex-shrink-0 w-48 md:w-64 mx-auto md:mx-0">
             <img
-              src={`http://localhost:8000${movie.poster_url}`}
+              src={import.meta.env.VITE_STORAGE_URL + `${movie.poster_url}`}
               alt={movie.title}
               className="w-full h-auto object-cover rounded-xl shadow-2xl shadow-black/50"
             />

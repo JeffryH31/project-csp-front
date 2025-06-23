@@ -40,7 +40,7 @@ const BookingSuccessModal = ({ isOpen, onClose }) => {
               Booking Successful!
             </h2>
             <p className="text-zinc-400 mb-8">
-              Your e-ticket has been sent to your email.
+              Your e-ticket has been purchased.
             </p>
             <button
               onClick={onClose}

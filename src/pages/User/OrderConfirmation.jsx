@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AxiosInstance } from "../../helper/AxiosInstance";
 import { toast } from "react-toastify";
-import BookingSuccessModal from "../../components/schedules/BookingSuccessModal";
+import BookingSuccessModal from "../../components/bookings/BookingSuccessModal";
 
 const InfoRow = ({ icon, children }) => (
   <div className="flex items-center gap-x-3">
@@ -23,7 +23,6 @@ const OrderConfirmation = () => {
     return null;
   }
   console.log(location);
-  
 
   const { bookingDetails } = location.state;
   const {
@@ -87,7 +86,7 @@ const OrderConfirmation = () => {
         <main className="flex-grow overflow-y-auto p-4 space-y-6">
           <div className="bg-zinc-900 rounded-xl p-4 flex gap-x-4 border border-zinc-800">
             <img
-              src={`http://localhost:8000${poster_url}`}
+              src={import.meta.env.VITE_STORAGE_URL + `${poster_url}`}
               alt={movie_title}
               className="w-24 h-36 rounded-lg object-cover"
             />

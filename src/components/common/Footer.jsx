@@ -121,7 +121,7 @@ const Footer = () => {
 
         <div className="mt-16 pt-8 border-t border-zinc-800 text-center text-zinc-500 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} CINEVERSE. Dibuat dengan sepenuh
+            &copy; {new Date().getFullYear()} JEGTV. Dibuat dengan sepenuh
             hati.
           </p>
         </div>

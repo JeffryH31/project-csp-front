@@ -30,12 +30,12 @@ const Navbar = () => {
           <div className="flex items-center gap-2 md:gap-4">
             {user ? (
               <>
-                <span className="text-sm hidden sm:block">
+                <span className="text-lg font-medium hidden sm:block glow-text">
                   Hi, {user.name.split(" ")[0]}
                 </span>
                 <Link
                   to="/history"
-                  className={`${buttonClass} bg-zinc-700 hover:bg-zinc-600`}
+                  className={`${buttonClass} bg-blue-700 hover:bg-blue-600`}
                 >
                   My Tickets
                 </Link>

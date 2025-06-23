@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { AxiosInstance } from "../../helper/AxiosInstance";
 import { toast } from "react-toastify";
-import BookingSummary from "../../components/schedules/BookingSummary";
+import BookingSummary from "../../components/bookings/BookingSummary";
 import Seat from "../../components/schedules/Seat";
 import CinemaScreen from "../../components/cinemas/CinemaScreen";
 import { useAuth } from "../../contexts/AuthContext";

@@ -1,19 +1,27 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./layout/AdminLayout";
-import MoviesPage from "./pages/Admin/MoviesPage";
-import SchedulesPage from "./pages/Admin/SchedulesPage";
-import DashboardPage from "./pages/Admin/DashboardPage";
-import MyTickets from "./pages/User/MyTickets";
-import Navbar from "./components/Navbar";
-import MovieSlider from "./components/MovieSlider";
+import { ToastContainer } from "react-toastify";
+
+// Layouts
+import AdminLayout from "./layout/AdminLayout";
+import UserLayout from "./layout/UserLayout";
+
+// Components
+import ProtectedRoute from "./components/common/ProtectedRoute";
+
+// Pages
+import Homepage from "./pages/User/Homepage";
 import MovieDetails from "./pages/User/MovieDetails";
 import SeatSelection from "./pages/User/SeatSelection";
 import OrderConfirmation from "./pages/User/OrderConfirmation";
-import Homepage from "./pages/User/Homepage";
+import History from "./pages/User/History";
+import TicketDetails from "./pages/User/TicketDetails";
 import AuthPage from "./pages/User/AuthPage";
-import { ToastContainer } from "react-toastify";
+import DashboardPage from "./pages/Admin/DashboardPage";
+import MoviesPage from "./pages/Admin/MoviesPage";
+import Bookings from "./pages/Admin/Bookings";
+import SchedulesPage from "./pages/Admin/SchedulesPage";
 
 function App() {
   return (
@@ -21,6 +29,7 @@ function App() {
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
+        theme="dark"
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -28,28 +37,36 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
         transition:Bounce
       />
       <Routes>
-        {/* User Routes */}
-        <Route path="/movies/:id" element={<MovieDetails />} />
-        <Route path="/history" element={<MyTickets />} />
-        <Route path="/seats/:schedule_id" element={<SeatSelection />} />
-        <Route path="/order-confirmation" element={<OrderConfirmation />} />
+        {/* Public */}
         <Route path="/login" element={<AuthPage />} />
         <Route path="/register" element={<AuthPage />} />
+        
+        <Route element={<UserLayout />}>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/movies/:id" element={<MovieDetails />} />
+          <Route path="/seats/:schedule_id" element={<SeatSelection />} />
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<Layout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="dashboard" element={<DashboardPage />} />
-          <Route path="movies" element={<MoviesPage />} />
-          <Route path="schedules" element={<SchedulesPage />} />
+          {/* User */}
+          <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+            <Route path="/history" element={<History />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
+            <Route path="/ticket/:bookingId" element={<TicketDetails />} />
+          </Route>
         </Route>
 
-        {/* Default Redirect (optional) */}
-        <Route path="/" element={<Homepage />} />
+        {/* Admin */}
+        <Route element={<ProtectedRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<DashboardPage />} />
+            <Route path="dashboard" element={<DashboardPage />} />
+            <Route path="movies" element={<MoviesPage />} />
+            <Route path="bookings" element={<Bookings />} />
+            <Route path="schedules" element={<SchedulesPage />} />
+          </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

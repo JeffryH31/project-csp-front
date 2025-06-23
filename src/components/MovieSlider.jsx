@@ -64,7 +64,7 @@ export default function MovieSlider() {
               <div className="w-full text-left group cursor-pointer">
                 <div className="overflow-hidden rounded-lg shadow-lg border-2 border-transparent group-hover:border-cyan-500 transition-all duration-300">
                   <img
-                    src={`http://localhost:8000${movie.poster_url}`}
+                    src={import.meta.env.VITE_STORAGE_URL+`${movie.poster_url}`}
                     alt={movie.title}
                     className="w-full h-[400px] md:h-[500px] object-cover group-hover:scale-105 transition-transform duration-300"
                   />
