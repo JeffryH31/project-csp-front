@@ -131,7 +131,7 @@ const TicketDetails = () => {
         </div>
       </div>
     </div>
-);
+  );
 };
 
 export default TicketDetails;

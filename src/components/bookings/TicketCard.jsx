@@ -49,12 +49,6 @@ const TicketCard = ({ ticket }) => {
                 {ticket?.seat_numbers?.split(",").length}
               </p>
             </div>
-            <button
-              onClick={() => navigate(`/ticket/${ticket.booking_id}`)}
-              className="bg-cyan-500/80 text-white font-bold text-sm py-2 px-4 rounded-lg shadow-lg hover:bg-cyan-500 transition-colors duration-300"
-            >
-              View Details
-            </button>
           </div>
         </div>
       </div>
