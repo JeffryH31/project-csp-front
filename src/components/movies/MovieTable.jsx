@@ -112,7 +112,7 @@ const MovieTable = ({ movies, onEdit, onDelete }) => {
                 className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider cursor-pointer"
                 onClick={() => requestSort("duration")}
               >
-                Duration{" "}
+                Duration
                 <SortIcon
                   direction={
                     sortConfig.key === "duration"
@@ -215,20 +215,20 @@ const MovieTable = ({ movies, onEdit, onDelete }) => {
 
       <div className="flex justify-between items-center mt-6">
         <span className="text-sm text-gray-500">
-          Showing{" "}
+          Showing
           <span className="font-semibold text-gray-700">
             {paginatedMovies.length > 0
               ? (currentPage - 1) * itemsPerPage + 1
               : 0}
-          </span>{" "}
-          to{" "}
+          </span>
+          to
           <span className="font-semibold text-gray-700">
             {Math.min(currentPage * itemsPerPage, sortedMovies.length)}
-          </span>{" "}
-          of{" "}
+          </span>
+          of
           <span className="font-semibold text-gray-700">
             {sortedMovies.length}
-          </span>{" "}
+          </span>
           results
         </span>
         <div className="flex items-center space-x-1">
